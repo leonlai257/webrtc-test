@@ -1,20 +1,33 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import { useEffect } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+// import { useStartPeerSession } from "../hooks/startUserPeerConnection";
+// import { useCreateMediaStream } from "../hooks/useCreateMediaStream";
 
 export default function Home() {
+  // const room = "room1";
+  // const galleryRef = useRef();
+  // const mainRef = useRef();
+
+  // useEffect(() => {
+  //   const localVideo = document.getElementById("#localVideo");
+  //   const userMediaStream = useCreateMediaStream(localVideo);
+  //   const { connectedUsers, shareScreen, cancelScreenSharing, isScreenShared } =
+  //     useStartPeerSession(room, userMediaStream, localVideo);
+  // });
+
   useEffect(() => {
-    let navigator = window.navigator;
+    const navigator = window.navigator;
 
     navigator.mediaDevices
       .getUserMedia({ audio: true, video: true })
       .then((stream) => {
-        const video = document.querySelector("video");
-        video.srcObject = stream;
-        video.onloadedmetadata = () => {
-          video.play();
+        const localVideo = document.getElementById(
+          "localVideo"
+        ) as HTMLVideoElement;
+        localVideo.srcObject = stream;
+        localVideo.onloadedmetadata = () => {
+          localVideo.play();
         };
       })
       .catch((err) => {});
@@ -29,7 +42,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <video id="rtc" autoPlay></video>
+        <video id="localVideo" autoPlay></video>
+        {/* {connectedUsers.map((user) => (
+          <video key={user} id={user} autoPlay playsInline />
+        ))} */}
       </main>
     </>
   );
