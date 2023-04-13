@@ -28,7 +28,9 @@ export default function Home() {
                     localVideo.play()
                 }
             })
-            .catch((err) => {})
+            .catch((err) => {
+                console.log(err)
+            })
     })
 
     return (
