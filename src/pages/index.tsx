@@ -30,8 +30,8 @@ export default function Home() {
             console.log('Received local stream')
             localVideo.srcObject = stream
             localStream = stream
-        } catch (e) {
-            alert(`getUserMedia() error: ${e.name}`)
+        } catch (error: any) {
+            alert(`getUserMedia() error: ${error.name}`)
         }
     }
 
